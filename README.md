@@ -2,25 +2,31 @@
 
 ## Objective
 
-This project implements a secure multi-client chat application using low-level TCP socket programming in Python.
-It supports multiple chat rooms, private messaging, secure SSL/TLS communication, and file transfer.
+This project implements a secure multi-client chat application using low-level TCP socket programming in Python. It supports dynamic room creation, room-based communication, private messaging, file transfer, secure SSL/TLS communication, timestamped messages, and server-side logging.
 
 ## Features
 
 * Multi-client concurrent communication using threading
-* Multi-room chat support
-* Private messaging between users
-* File transfer within rooms
+* Dynamic room creation using `/create`
+* Multi-room chat support using `/join`
+* Private messaging using `/msg`
+* File transfer using `/file`
+* User listing inside room using `/users`
+* Server monitoring using `/status`
 * SSL/TLS secure communication using self-signed certificate
-* Graceful disconnect handling
-* Invalid command handling
+* Timestamped messages
+* Graceful disconnect using `/quit`
+* Chat logging into `chat_log.txt`
 
 ## Commands
 
-* /join room1 → Join a room
-* /msg username message → Private message
-* /file filename → Send file
-* /quit → Exit safely
+* `/create room1` → Create a room
+* `/join room1` → Join a room
+* `/users` → Show users in current room
+* `/status` → Show connected users and active rooms
+* `/msg username message` → Private message
+* `/file filename` → Send file
+* `/quit` → Exit safely
 
 ## Technologies Used
 
@@ -45,13 +51,25 @@ openssl req -new -x509 -days 365 -nodes -out server.crt -keyout server.key
 
 ## Architecture
 
-Clients connect to a threaded secure TCP server.
-The server manages room membership, private messaging, and file transfer through command-based protocol.
+The project follows client-server architecture.
+The server accepts secure client connections, manages room membership, processes commands, routes private messages, transfers files, and logs activity.
 
-## Testing Done
+## Testing Performed
 
 * Tested with multiple concurrent clients
-* Tested file transfer
+* Tested room creation and joining
 * Tested private messaging
-* Tested invalid commands
-* Tested client disconnect handling
+* Tested file transfer
+* Tested invalid command handling
+* Tested graceful disconnect
+* Tested SSL secure communication
+
+## Files Included
+
+* server.py
+* client.py
+* server.crt
+* server.key
+* notes.txt
+* chat_log.txt
+* README.md
