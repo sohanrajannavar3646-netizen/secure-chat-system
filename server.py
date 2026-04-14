@@ -30,7 +30,8 @@ def handle_client(client, username):
             if message.startswith("/create"):
                 room = message.split()[1]
                 available_rooms.add(room)
-                client.send(f"Room {room} created".encode())
+                rooms[username] = room
+                client.send(f"Room {room} created and joined".encode())
 
             elif message.startswith("/join"):
                 room = message.split()[1]
